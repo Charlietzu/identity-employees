@@ -152,3 +152,8 @@ C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Employees\Details.cshtml.g.cs
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Employees\Edit.cshtml.g.cs
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Employees\Index.cshtml.g.cs
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
