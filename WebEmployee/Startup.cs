@@ -30,7 +30,11 @@ namespace WebEmployee
                 options => options.
                 UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(options => 
+            {
+                //options.Password.RequiredLength = 10;
+                //options.Password.RequiredUniqueChars = 3;
+            })
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddControllersWithViews();
