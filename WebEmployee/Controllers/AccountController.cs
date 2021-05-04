@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebEmployee.Models;
@@ -13,8 +14,8 @@ namespace WebEmployee.Controllers
 
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -28,13 +29,13 @@ namespace WebEmployee.Controllers
         {
             if(ModelState.IsValid)
             {
-                var user = new IdentityUser
+                IdentityUser user = new IdentityUser
                 {
                     UserName = model.Email,
                     Email = model.Email
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -58,6 +59,7 @@ namespace WebEmployee.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(ModelState.IsValid)
@@ -76,9 +78,31 @@ namespace WebEmployee.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            } else
+            {
+                return RedirectToAction("index", "home");
+            }
+        }
+
+        [AcceptVerbs("Get", "Post")]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            IdentityUser user = await _userManager.FindByEmailAsync(email);
+
+            if(user == null)
+            {
+                return Json(true);
+            } else
+            {
+                return Json($"Email {email} is already being used.");
+            }
         }
     }
 }
