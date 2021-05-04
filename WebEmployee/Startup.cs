@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebEmployee.Context;
+using WebEmployee.Models;
 
 namespace WebEmployee
 {
@@ -32,21 +33,18 @@ namespace WebEmployee
                 options => options.
                 UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options => 
-            {
-                //options.Password.RequiredLength = 10;
-                //options.Password.RequiredUniqueChars = 3;
-            })
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
-            services.AddControllersWithViews(config => 
-            {
-                AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .Build();
-
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
+            //services.AddControllersWithViews(config => 
+            //{
+            //    AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
+            //            .RequireAuthenticatedUser()
+            //            .Build();
+            //
+            //    config.Filters.Add(new AuthorizeFilter(policy));
+            //});
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -14,5 +14,8 @@ namespace WebEmployee.ViewModels
 
         [DataType(DataType.Password), Display(Name = "Confirm your password"), Compare("Password", ErrorMessage = "Passwords do not match")]
         public string ConfirmPassword { get; set; }
+
+        public string City { get; set; }
+
     }
 }

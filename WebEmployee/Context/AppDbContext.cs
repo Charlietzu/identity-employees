@@ -4,7 +4,7 @@ using WebEmployee.Models;
 
 namespace WebEmployee.Context
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {}

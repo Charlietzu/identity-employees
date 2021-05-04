@@ -9,10 +9,10 @@ namespace WebEmployee.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -29,10 +29,11 @@ namespace WebEmployee.Controllers
         {
             if(ModelState.IsValid)
             {
-                IdentityUser user = new IdentityUser
+                ApplicationUser user = new ApplicationUser
                 {
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    City = model.City
                 };
 
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
@@ -59,7 +60,6 @@ namespace WebEmployee.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(ModelState.IsValid)
@@ -78,23 +78,23 @@ namespace WebEmployee.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            } else
-            {
-                return RedirectToAction("index", "home");
-            }
+            //if (Url.IsLocalUrl(returnUrl))
+            //{
+            //    return Redirect(returnUrl);
+            //} else
+            //{
+            //    return RedirectToAction("index", "home");
+            //}
+            return View();
         }
 
         [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
-            IdentityUser user = await _userManager.FindByEmailAsync(email);
+            ApplicationUser user = await _userManager.FindByEmailAsync(email);
 
             if(user == null)
             {
