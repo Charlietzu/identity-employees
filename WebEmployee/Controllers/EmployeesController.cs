@@ -31,7 +31,7 @@ namespace WebEmployee.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            Employee employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.EmployeeId == id);
             if (employee == null)
             {
@@ -71,7 +71,7 @@ namespace WebEmployee.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
+            Employee employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
                 return NotFound();
@@ -122,7 +122,7 @@ namespace WebEmployee.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            Employee employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.EmployeeId == id);
             if (employee == null)
             {
@@ -137,7 +137,7 @@ namespace WebEmployee.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            Employee employee = await _context.Employees.FindAsync(id);
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

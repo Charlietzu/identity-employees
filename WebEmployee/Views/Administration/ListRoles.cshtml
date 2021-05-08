@@ -7,7 +7,7 @@
 {
     <a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole"
        asp-controller="administration">New Role</a>
-    foreach (var role in Model)
+    foreach (IdentityRole role in Model)
     {
         <div class="card mb-3">
             <div class="card-header">

@@ -44,7 +44,7 @@ namespace WebEmployee.Controllers
                     return RedirectToAction("index", "home");
                 }
 
-                foreach (var error in result.Errors)
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
@@ -64,7 +64,7 @@ namespace WebEmployee.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if(result.Succeeded)
                 {

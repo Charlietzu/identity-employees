@@ -51,7 +51,7 @@ namespace WebEmployee.Controllers
         [HttpGet]
         public IActionResult ListRoles()
         {
-            var roles = _roleManager.Roles;
+            IQueryable<IdentityRole> roles = _roleManager.Roles;
             return View(roles);
         }
 
@@ -108,7 +108,7 @@ namespace WebEmployee.Controllers
                 {
                     return RedirectToAction("ListRoles");
                 }
-                foreach (var error in result.Errors)
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
