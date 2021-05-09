@@ -38,6 +38,14 @@
                                     </button>
                                 </form>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Administration" asp-action="ListRoles">
+                                        Gerenciar Roles
+                                    </a>
+                                </li>
+                            }
                         }
                         else
                         {

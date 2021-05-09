@@ -104,5 +104,12 @@ namespace WebEmployee.Controllers
                 return Json($"Email {email} is already being used.");
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
