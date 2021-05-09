@@ -190,5 +190,33 @@ namespace WebEmployee.Controllers
 
             return RedirectToAction("EditRole", new { Id = roleId });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+
+            if(role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with Id = {id} was not found";
+                return View("NotFound");
+            }
+            else
+            {
+                IdentityResult result = await _roleManager.DeleteAsync(role);
+
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("ListRoles");
+                }
+
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("ListRoles");
+            }
+        }
     }
 }
