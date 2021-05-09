@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewBag.Title = "User List";
+}
+<h2>Users</h2>
+@if (Model.Any())
+{
+    <a asp-action="Register" asp-controller="Account"
+       class="btn btn-primary mb-3" style="width:auto">
+        New User
+    </a>
+    foreach (ApplicationUser user in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                ID : @user.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@user.UserName</h5>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-success">Update</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No registered users
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Click the button bellow to register a user
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Account" asp-action="Register">
+                Create a new User
+            </a>
+        </div>
+    </div>
+}

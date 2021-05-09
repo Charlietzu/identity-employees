@@ -220,5 +220,12 @@ namespace WebEmployee.Controllers
                 return View("ListRoles");
             }
         }
+
+        [HttpGet]
+        public IActionResult ListUsers()
+        {
+            IQueryable<ApplicationUser> users = _userManager.Users;
+            return View(users);
+        }
     }
 }
