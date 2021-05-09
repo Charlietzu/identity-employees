@@ -64,7 +64,7 @@ namespace WebEmployee.Controllers
 
             if(role == null)
             {
-                ViewBag.ErrorMessage = $"The role with Id = {id} was not found";
+                ViewBag.ErrorMessage = $"Role with Id = {id} was not found";
                 return View("NotFound");
             }
 
@@ -97,7 +97,7 @@ namespace WebEmployee.Controllers
 
             if (role == null)
             {
-                ViewBag.ErrorMessage = $"The role with Id = {model.Id} was not found";
+                ViewBag.ErrorMessage = $"Role with Id = {model.Id} was not found";
                 return View("NotFound");
             }
             else
@@ -226,6 +226,91 @@ namespace WebEmployee.Controllers
         {
             IQueryable<ApplicationUser> users = _userManager.Users;
             return View(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUser(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            if(user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} was not found";
+                return View("NotFound");
+            }
+
+            IList<System.Security.Claims.Claim> userClaims = await _userManager.GetClaimsAsync(user);
+
+            IList<string> userRoles = await _userManager.GetRolesAsync(user);
+
+            EditUserViewModel model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                City = user.City,
+                Claims = userClaims.Select(c => c.Value).ToList(),
+                Roles = userRoles.ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} was not found";
+                return View("NotFound");
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+                user.City = model.City;
+
+                IdentityResult result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} was not found";
+                return View("NotFound");
+            }
+            else
+            {
+                IdentityResult  result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View("ListUsers");
+            }
         }
     }
 }

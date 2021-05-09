@@ -165,3 +165,4 @@ C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUsersInRole.cshtml.g.cs
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Account\AccessDenied.cshtml.g.cs
 C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListUsers.cshtml.g.cs
+C:\Users\Caio\Documents\projetos\WebEmployee\WebEmployee\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUser.cshtml.g.cs
